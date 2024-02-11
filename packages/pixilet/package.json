@@ -1,0 +1,32 @@
+{
+	"name": "pixilet",
+	"version": "1.0.0",
+	"description": "A Leaflet layer that uses PixiJS to render WebGL content",
+	"type": "module",
+	"main": "lib/esnext/index.js",
+	"scripts": {
+		"build": "vite build",
+		"dev": "vite"
+	},
+	"files": [
+		"lib"
+	],
+	"keywords": [
+		"leaflet",
+		"pixi.js",
+		"overlay",
+		"layer",
+		"pixijs",
+		"pixilet"
+	],
+	"devDependencies": {
+		"@types/leaflet": "^1.9.8",
+		"leaflet": "^1.9.4",
+		"pixi.js": "^7.3.3",
+		"vite": "^5.0.11"
+	},
+	"peerDependencies": {
+		"leaflet": "^1.9.4",
+		"pixi.js": "^7.3.3"
+	}
+}

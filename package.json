@@ -1,0 +1,38 @@
+{
+	"name": "pixilet",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Monorepo containing most of PixiLet's codebase",
+	"type": "module",
+	"scripts": {
+		"prepare": "husky",
+		"lint": "eslint . --ext .ts,.js && prettier --check .",
+		"lint:fix": "eslint . --ext .ts,.js --fix && prettier --write .",
+		"build": "pnpm clean && tsc -b tsconfig.build.json && pnpm -r build",
+		"build:watch": "pnpm clean && tsc -b tsconfig.build.json -w",
+		"clean": "tsc -b tsconfig.build.json --clean",
+		"test": "vitest --run",
+		"test:ui": "vitest --ui",
+		"release": "pnpm i && pnpm -r build && bumpp package.json packages/*/package.json --commit --push --tag"
+	},
+	"license": "MPL-2.0",
+	"devDependencies": {
+		"@commitlint/cli": "^18.6.0",
+		"@recodive/configs": "^1.7.5",
+		"@recodive/eslint-config": "^1.7.5",
+		"@rushstack/eslint-patch": "^1.7.2",
+		"@types/node": "^20.11.17",
+		"@vitest/coverage-v8": "^1.2.2",
+		"@vitest/ui": "^1.2.2",
+		"bumpp": "^9.3.0",
+		"eslint": "^8.56.0",
+		"husky": "^9.0.10",
+		"prettier": "^3.2.5",
+		"typescript": "^5.3.3",
+		"vitest": "^1.2.2"
+	},
+	"packageManager": "pnpm@8.14.3",
+	"engines": {
+		"node": "^20.0.0"
+	}
+}

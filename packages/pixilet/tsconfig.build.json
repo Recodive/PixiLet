@@ -1,0 +1,22 @@
+{
+	"extends": "../../tsconfig.json",
+	"include": ["src/**/*"],
+	"exclude": ["lib", "dist", "**/*.test.ts"],
+	"compilerOptions": {
+		"target": "esnext",
+		"useDefineForClassFields": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"strict": true,
+		"jsx": "preserve",
+		"sourceMap": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"lib": ["esnext", "dom"],
+		"declaration": true,
+		"outDir": "lib/esnext",
+		"isolatedModules": true,
+		"skipLibCheck": true,
+		"types": ["./environment.d.ts", "@types/node"]
+	}
+}
