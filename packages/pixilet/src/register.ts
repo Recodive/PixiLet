@@ -3,6 +3,7 @@
 import { register } from "./index.js";
 
 (() => {
+	/* c8 ignore start */ // ? Can only test Node/CommonJS in vitest
 	if (typeof define === "function" && define.amd) {
 		//* AMD
 		define(["leaflet", "pixi.js"], register);
@@ -13,6 +14,7 @@ import { register } from "./index.js";
 		if (window.PIXI === undefined) throw new Error("Pixi.js must be loaded first");
 		register(window.L, window.PIXI);
 	} else {
+		/* c8 ignore stop */
 		//* Node/CommonJS
 		// eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/no-unsafe-argument
 		module.exports = register(require("leaflet"), require("pixi.js"));

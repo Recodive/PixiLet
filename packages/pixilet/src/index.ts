@@ -5,7 +5,7 @@ import { setPosition } from "./functions/setPosition.js";
 import { setStyle } from "./functions/setStyle.js";
 import { setUtils } from "./functions/setUtils.js";
 import { setupToggleRounding } from "./functions/toggleRounding.js";
-import type { IPixiLetLayer, PixiLetDrawCallback, PixiLetDrawCallbackEvent, PixiLetEvents, PixiLetOptions, PixiLetUtils } from "./types.js";
+import type { DeepPartial, IPixiLetLayer, PixiLetDrawCallback, PixiLetDrawCallbackEvent, PixiLetEvents, PixiLetOptions, PixiLetUtils } from "./types.js";
 export * from "./types.js";
 
 export function register(L: typeof import("leaflet"), PIXI: typeof import("pixi.js")) {
@@ -126,7 +126,7 @@ export function register(L: typeof import("leaflet"), PIXI: typeof import("pixi.
 				zoomanim: this._zoomAnimated ? this._onAnimZoom.bind(this) : undefined,
 			} satisfies PixiLetEvents as Record<string, LeafletEventHandlerFn>;
 		},
-		initialize(this: IPixiLetLayer, drawCallback: PixiLetDrawCallback, options?: Partial<PixiLetOptions>): void {
+		initialize(this: IPixiLetLayer, drawCallback: PixiLetDrawCallback, options?: DeepPartial<PixiLetOptions>): void {
 			setOptions.call(this, L, PIXI, options);
 			L.stamp(this);
 			this._drawCallback = drawCallback;
@@ -165,16 +165,16 @@ export function register(L: typeof import("leaflet"), PIXI: typeof import("pixi.
 			return this;
 		},
 	} satisfies Partial<IPixiLetLayer>);
-	L.pixiLetLayer = <DrawData = undefined>(drawCallback: PixiLetDrawCallback<DrawData>, options?: Partial<PixiLetOptions>) => {
+	L.pixiLetLayer = <DrawData = undefined>(drawCallback: PixiLetDrawCallback<DrawData>, options?: DeepPartial<PixiLetOptions>) => {
 		return new L.PixiLetLayer<DrawData>(drawCallback, options);
 	};
 }
 
 declare module "leaflet" {
-	function pixiLetLayer<DrawData = undefined>(draw: PixiLetDrawCallback<DrawData>, options?: Partial<PixiLetOptions>): PixiLetLayer<DrawData>;
+	function pixiLetLayer<DrawData = undefined>(draw: PixiLetDrawCallback<DrawData>, options?: DeepPartial<PixiLetOptions>): PixiLetLayer<DrawData>;
 
 	class PixiLetLayer<DrawData = undefined> extends Layer {
-		constructor(draw: PixiLetDrawCallback<DrawData>, options?: Partial<PixiLetOptions>);
+		constructor(draw: PixiLetDrawCallback<DrawData>, options?: DeepPartial<PixiLetOptions>);
 		options: PixiLetOptions;
 		utils: PixiLetUtils;
 		redraw(data?: DrawData): Promise<this>;

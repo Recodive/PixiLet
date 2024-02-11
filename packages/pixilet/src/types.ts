@@ -211,3 +211,7 @@ export type PixiLetDrawCallbackEvent<T = undefined> =
 
 export type PixiLetDrawCallback<T = undefined> = (utils: PixiLetUtils, event: PixiLetDrawCallbackEvent<T>) => Awaitable<void>;
 export type Awaitable<T> = T | Promise<T>;
+
+export type DeepPartial<T> = {
+	[P in keyof T]?: T[P] extends Record<string, unknown> ? DeepPartial<T[P]> : T[P];
+};

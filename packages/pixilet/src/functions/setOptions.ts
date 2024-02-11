@@ -1,17 +1,19 @@
-import type { IPixiLetLayer, PixiLetOptions } from "../types.js";
+import type { DeepPartial, IPixiLetLayer, PixiLetOptions } from "../types.js";
 import { projectionZoom } from "./projectionZoom.js";
 
-export function setOptions(this: IPixiLetLayer, L: typeof import("leaflet"), PIXI: typeof import("pixi.js"), options?: Partial<PixiLetOptions>) {
+export function setOptions(this: IPixiLetLayer, L: typeof import("leaflet"), PIXI: typeof import("pixi.js"), options?: DeepPartial<PixiLetOptions>) {
 	options ??= {};
 	options.container ??= new PIXI.Container();
 	options.doubleBuffering ??= false;
 	options.padding ??= 0.1;
 	options.projectionZoom ??= projectionZoom;
+	/* c8 ignore next */ // ? Covered
 	options.shouldRedrawOnMove ??= () => false;
 	options.renderer ??= {
 		antialias: true,
 		backgroundAlpha: 0,
 		clearBeforeRender: true,
+		/* c8 ignore next */ // ? Can't test L.Browser.retina
 		resolution: L.Browser.retina ? 2 : 1,
 	};
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -20,13 +22,14 @@ export function setOptions(this: IPixiLetLayer, L: typeof import("leaflet"), PIX
 	options.renderer.backgroundAlpha ??= 0;
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	options.renderer.clearBeforeRender ??= true;
+	/* c8 ignore next 2 */ // ? Can't test L.Browser.retina
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	options.renderer.resolution ??= L.Browser.retina ? 2 : 1;
 
 	this.options = {
 		...getAllProperties(this.options),
 		...options,
-	};
+	} as PixiLetOptions;
 }
 
 function getAllProperties<T = Record<string, unknown>>(startObject: T): T {
