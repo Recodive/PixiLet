@@ -1,4 +1,5 @@
 {
+	"exclude": ["**/lib/**"],
 	"compilerOptions": {
 		"esModuleInterop": true,
 		"skipLibCheck": true,
