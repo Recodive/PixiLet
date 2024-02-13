@@ -12,7 +12,6 @@ module.exports = {
 	parserOptions: {
 		project: [
 			"./tsconfig.eslint.json",
-			"./packages/*/tsconfig.build.json",
 		],
 		tsconfigRootDir: __dirname,
 	},
