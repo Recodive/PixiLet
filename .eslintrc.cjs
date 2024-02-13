@@ -2,7 +2,7 @@
 require("@rushstack/eslint-patch/modern-module-resolution");
 
 module.exports = {
-	extends: "@recodive/eslint-config/strict",
+	extends: ["@recodive/eslint-config/strict"],
 	overrides: [
 		{
 			extends: ["plugin:@typescript-eslint/disable-type-checked"],
@@ -10,9 +10,6 @@ module.exports = {
 		},
 	],
 	parserOptions: {
-		project: [
-			"./tsconfig.json",
-		],
-		tsconfigRootDir: __dirname,
+		project: "./tsconfig.json",
 	},
 };
