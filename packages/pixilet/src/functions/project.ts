@@ -10,6 +10,6 @@ export type LatLngCoords =
 		alt?: number | undefined;
 	};
 
-export function project(L: typeof import("Leaflet"), map: Map, initialZoom: number): (latLng: LatLngCoords, zoom?: number | undefined) => Point {
+export function project(L: typeof import("leaflet"), map: Map, initialZoom: number): (latLng: LatLngCoords, zoom?: number | undefined) => Point {
 	return (coords, zoom) => map.project(L.latLng(coords), zoom ?? initialZoom);
 }

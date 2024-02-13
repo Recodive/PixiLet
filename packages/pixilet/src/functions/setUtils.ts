@@ -2,7 +2,7 @@ import type { IPixiLetLayer } from "../types.js";
 import { project } from "./project.js";
 import { unproject } from "./unproject.js";
 
-export function setUtils(this: IPixiLetLayer, L: typeof import("Leaflet")) {
+export function setUtils(this: IPixiLetLayer, L: typeof import("leaflet")) {
 	this.utils = {
 		getContainer: () => (this as {
 			_pixiContainer?: import("pixi.js").Container;

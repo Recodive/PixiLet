@@ -4,3 +4,4 @@
 *.vue
 pnpm-lock.yaml
 cache
+.pnpm-store
