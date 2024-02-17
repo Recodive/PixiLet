@@ -23,7 +23,6 @@ describe("setPosition", () => {
 
 		setPosition.call(layer as unknown as IPixiLetLayer, L, layer._map.getCenter(), layer._map.getZoom());
 
-		expect((layer._container as { _leaflet_pos: Record<string, unknown> } & HTMLDivElement)._leaflet_pos).toMatchObject({ x: -0.127_999_999_999_985_9, y: 0.258_551_462_728_803_47 });
-		expect(layer._container.getAttribute("style")).toEqual("left: -0.1279999999999859px; top: 0.25855146272880347px;");
+		expect(layer._container.style.transform).toBe("translate3d(-0.128px, 0.258551px, 0px) scale(1)");
 	});
 });

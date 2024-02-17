@@ -10,15 +10,14 @@ describe("register()", () => {
 		expect(L.pixiLetLayer).toBeUndefined();
 		expect(L.PixiLetLayer).toBeUndefined();
 
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-var-requires, unicorn/prefer-module
-		register(require("leaflet"), require("pixi.js"));
+		register(L, PIXI);
 
 		expect(L.pixiLetLayer).toBeInstanceOf(Function);
 		expect(L.PixiLetLayer).toBeDefined();
 	});
 
 	describe("pixiLetLayer()", () => {
-		it.todo("returns a new PixiLetLayer", () => {
+		it("returns a new PixiLetLayer", () => {
 			expect(L.pixiLetLayer).toBeInstanceOf(Function);
 			expect(L.pixiLetLayer(() => { /* test */ })).toBeInstanceOf(L.PixiLetLayer);
 			const spy = vitest.fn(),
@@ -35,13 +34,30 @@ describe("register()", () => {
 			expect(map.hasLayer(layer)).toBe(false);
 			expect(layer.addTo(map)).toBe(layer);
 			expect(map.hasLayer(layer)).toBe(true);
-			expect(spy).toHaveBeenCalled();
+			expect(spy).toHaveBeenCalledWith(layer.utils, expect.objectContaining({ type: "add" }));
+
+			layer.destroy();
+
+			expect(map.hasLayer(layer)).toBe(false);
 		});
 	});
 
-	describe.todo("new PixiLetLayer()", () => {
-		it.todo("creates a new PixiLetLayer", () => {
-			// TODO
+	describe("new PixiLetLayer()", () => {
+		it("creates a new PixiLetLayer", () => {
+			const spy = vitest.fn(),
+				container = new PIXI.Container(),
+				layer = new L.PixiLetLayer(spy, {
+					container,
+				});
+			expect(layer).toBeInstanceOf(L.PixiLetLayer);
+			expect(spy).not.toHaveBeenCalled();
+			expect(layer.options.padding).toBe(0.1);
+
+			const map = L.map(document.createElement("div")).setView([51.505, -0.09], 13);
+			expect(map.hasLayer(layer)).toBe(false);
+			expect(layer.addTo(map)).toBe(layer);
+			expect(map.hasLayer(layer)).toBe(true);
+			expect(spy).toHaveBeenCalledWith(layer.utils, expect.objectContaining({ type: "add" }));
 		});
 
 		it.todo("sets the options", () => {
