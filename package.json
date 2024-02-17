@@ -18,20 +18,20 @@
 	"license": "MPL-2.0",
 	"devDependencies": {
 		"@commitlint/cli": "^18.6.1",
-		"@recodive/configs": "^1.7.5",
-		"@recodive/eslint-config": "^1.7.5",
+		"@recodive/configs": "^1.7.6",
+		"@recodive/eslint-config": "^1.7.6",
 		"@rushstack/eslint-patch": "^1.7.2",
-		"@types/node": "^20.11.17",
-		"@vitest/coverage-v8": "^1.2.2",
-		"@vitest/ui": "^1.2.2",
-		"@vitest/web-worker": "^1.2.2",
+		"@types/node": "^20.11.19",
+		"@vitest/coverage-v8": "^1.3.0",
+		"@vitest/ui": "^1.3.0",
+		"@vitest/web-worker": "^1.3.0",
 		"bumpp": "^9.3.0",
 		"eslint": "^8.56.0",
 		"happy-dom": "^13.3.8",
-		"husky": "^9.0.10",
+		"husky": "^9.0.11",
 		"prettier": "^3.2.5",
 		"typescript": "^5.3.3",
-		"vitest": "^1.2.2"
+		"vitest": "^1.3.0"
 	},
 	"packageManager": "pnpm@8.15.2",
 	"engines": {
