@@ -16,14 +16,10 @@ export function setOptions(this: IPixiLetLayer, L: typeof import("leaflet"), PIX
 		/* c8 ignore next */ // ? Can't test L.Browser.retina
 		resolution: L.Browser.retina ? 2 : 1,
 	};
-	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	options.renderer.antialias ??= true;
-	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	options.renderer.backgroundAlpha ??= 0;
-	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	options.renderer.clearBeforeRender ??= true;
-	/* c8 ignore next 2 */ // ? Can't test L.Browser.retina
-	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+	/* c8 ignore next */ // ? Can't test L.Browser.retina
 	options.renderer.resolution ??= L.Browser.retina ? 2 : 1;
 
 	this.options = {

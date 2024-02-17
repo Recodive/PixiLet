@@ -37,6 +37,8 @@ describe.concurrent("setOptions", () => {
 		setOptions.call(thisObject, L, PIXI, {
 			renderer: {
 				antialias: false,
+				backgroundAlpha: 0.5,
+				resolution: 2,
 			},
 			shouldRedrawOnMove: () => true,
 		});
@@ -48,9 +50,9 @@ describe.concurrent("setOptions", () => {
 			projectionZoom: expect.any(Function),
 			renderer: {
 				antialias: false,
-				backgroundAlpha: 0,
+				backgroundAlpha: 0.5,
 				clearBeforeRender: true,
-				resolution: 1,
+				resolution: 2,
 			},
 			shouldRedrawOnMove: expect.any(Function),
 		}));
