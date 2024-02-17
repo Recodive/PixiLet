@@ -1,4 +1,4 @@
-import { IRenderer } from "pixi.js";
+import type { IRenderer } from "pixi.js";
 import { describe, it } from "vitest";
 
 import { setStyle } from "./setStyle.js";

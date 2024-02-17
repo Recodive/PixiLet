@@ -6,6 +6,7 @@ import { setStyle } from "./functions/setStyle.js";
 import { setUtils } from "./functions/setUtils.js";
 import { setupToggleRounding } from "./functions/toggleRounding.js";
 import type { DeepPartial, IPixiLetLayer, PixiLetDrawCallback, PixiLetDrawCallbackEvent, PixiLetEvents, PixiLetOptions, PixiLetUtils } from "./types.js";
+export type { LatLngCoords } from "./functions/project.js";
 export * from "./types.js";
 
 export function register(L: typeof import("leaflet"), PIXI: typeof import("pixi.js")) {
