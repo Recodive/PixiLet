@@ -3,7 +3,8 @@
 import { register } from "./index.js";
 
 (() => {
-	if (typeof define === "function" && define.amd) {
+	/* istanbul ignore next -- @preserve */
+	if (typeof define === "function" && /* istanbul ignore next -- @preserve */ define.amd) {
 		//* AMD
 		define(["leaflet", "pixi.js"], register);
 	} else if (typeof module === "undefined") {

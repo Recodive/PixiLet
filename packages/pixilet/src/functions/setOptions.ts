@@ -7,19 +7,19 @@ export function setOptions(this: IPixiLetLayer, L: typeof import("leaflet"), PIX
 	options.doubleBuffering ??= false;
 	options.padding ??= 0.1;
 	options.projectionZoom ??= projectionZoom;
-	/* c8 ignore next */ // ? Covered
+	/* istanbul ignore next -- @preserve */ // ? Covered
 	options.shouldRedrawOnMove ??= () => false;
+	/* istanbul ignore next -- @preserve */ // ? Can't test L.Browser.retina
 	options.renderer ??= {
 		antialias: true,
 		backgroundAlpha: 0,
 		clearBeforeRender: true,
-		/* c8 ignore next */ // ? Can't test L.Browser.retina
 		resolution: L.Browser.retina ? 2 : 1,
 	};
 	options.renderer.antialias ??= true;
 	options.renderer.backgroundAlpha ??= 0;
 	options.renderer.clearBeforeRender ??= true;
-	/* c8 ignore next */ // ? Can't test L.Browser.retina
+	/* istanbul ignore next -- @preserve */ // ? Can't test L.Browser.retina
 	options.renderer.resolution ??= L.Browser.retina ? 2 : 1;
 
 	this.options = {
@@ -33,6 +33,7 @@ function getAllProperties<T = Record<string, unknown>>(startObject: T): T {
 		object = startObject;
 	for (; !!object && typeof object === "object"; object = Object.getPrototypeOf(object) as T) {
 		const op = Object.getOwnPropertyNames(object);
+		/* istanbul ignore next -- @preserve */ // ? Covered
 		for (const property of op) if (!names.includes(property)) names.push(property);
 	}
 	const defaultProperties = Object.getOwnPropertyNames(Object.getPrototypeOf({}));
