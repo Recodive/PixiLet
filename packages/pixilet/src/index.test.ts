@@ -58,6 +58,10 @@ describe("register()", () => {
 			expect(layer.addTo(map)).toBe(layer);
 			expect(map.hasLayer(layer)).toBe(true);
 			expect(spy).toHaveBeenCalledWith(layer.utils, expect.objectContaining({ type: "add" }));
+
+			layer.destroy();
+
+			expect(map.hasLayer(layer)).toBe(false);
 		});
 
 		it.todo("sets the options", () => {

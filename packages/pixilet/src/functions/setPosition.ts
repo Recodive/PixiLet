@@ -8,7 +8,7 @@ export function setPosition(this: IPixiLetLayer, L: typeof import("leaflet"), ce
 		currentCenterPoint = this._map.project(this._map.getCenter(), zoom),
 		topLeftOffset = padding.multiplyBy(-scale).add(currentCenterPoint).subtract(this._map._getNewPixelOrigin(center, zoom));
 
-	/* c8 ignore next */
 	if (L.Browser.any3d) L.DomUtil.setTransform(this._container, topLeftOffset, scale);
+	/* c8 ignore next */
 	else L.DomUtil.setPosition(this._container, topLeftOffset);
 }

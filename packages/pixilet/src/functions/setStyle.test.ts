@@ -33,5 +33,11 @@ describe.concurrent("setStyle", () => {
 		setStyle({} as IRenderer, {
 			backgroundColor: "red",
 		});
+
+		setStyle({
+			style: undefined,
+		} as unknown as IRenderer, {
+			backgroundColor: "red",
+		});
 	});
 });
