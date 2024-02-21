@@ -50,7 +50,7 @@ jobs:
           node-version-file: package.json
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
+      - name: Install Playwright Dependencies
+        run: pnpm exec playwright install firefox --with-deps
       - name: Test
         run: pnpm run test
