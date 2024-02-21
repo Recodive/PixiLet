@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>PixiLet</title>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+			integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+			crossorigin=""
+		/>
+		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+		<script src="https://pixijs.download/release/pixi.js"></script>
+		<script src="./lib/umd/pixilet.umd.cjs"></script>
+	</head>
+	<body style="height: 100vh; width: 100vw; margin: 0">
+		<div id="map" style="height: 100%; width: 100%"></div>
+		<script>
+			var map = L.map("map").setView([51.505, -0.09], 13);
+			L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+				attribution: "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors",
+				maxZoom: 18,
+			}).addTo(map);
+
+			const polygonLatLngs = [
+				[51.509, -0.08],
+				[51.503, -0.06],
+				[51.51, -0.047],
+				[51.509, -0.08],
+			];
+			let projectedPolygon;
+			const triangle = new PIXI.Graphics();
+
+			const pixiContainer = new PIXI.Container();
+			pixiContainer.addChild(triangle);
+
+			let firstDraw = true;
+			let prevZoom;
+
+			const pixiOverlay = L.pixiLetLayer(
+				(utils) => {
+					const zoom = utils.getMap().getZoom();
+					const container = utils.getContainer();
+					const renderer = utils.getRenderer();
+					const project = utils.project;
+					const scale = utils.getScale();
+
+					if (firstDraw) {
+						projectedPolygon = polygonLatLngs.map((coords) => project(coords));
+					}
+					if (firstDraw || prevZoom !== zoom) {
+						triangle.clear();
+						triangle.lineStyle(3 / scale, 0x3388ff, 1);
+						triangle.beginFill(0x3388ff, 0.2);
+						projectedPolygon.forEach((coords, index) => {
+							if (index == 0) triangle.moveTo(coords.x, coords.y);
+							else triangle.lineTo(coords.x, coords.y);
+						});
+						triangle.endFill();
+					}
+					firstDraw = false;
+					prevZoom = zoom;
+					renderer.render(container);
+				},
+				{
+					container: pixiContainer,
+				}
+			);
+
+			pixiOverlay.addTo(map);
+			console.log(Date.now(), "a");
+		</script>
+		<!-- <script>
+			var map = L.map("map").setView([51.505, -0.09], 13);
+			L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+				attribution: "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors",
+				maxZoom: 18,
+			}).addTo(map);
+
+			const polygonLatLngs = [
+				[51.509, -0.08],
+				[51.503, -0.06],
+				[51.51, -0.047],
+				[51.509, -0.08],
+			];
+			let projectedPolygon;
+			const triangle = new PIXI.Graphics();
+
+			const pixiContainer = new PIXI.Container();
+			pixiContainer.addChild(triangle);
+
+			let firstDraw = true;
+			let prevZoom;
+
+			const pixiOverlay = L.pixiOverlay(
+				utils => {
+					const zoom = utils.getMap().getZoom();
+					const container = utils.getContainer();
+					const renderer = utils.getRenderer();
+					const project = utils.project;
+					const scale = utils.getScale();
+
+					if (firstDraw) {
+						projectedPolygon = polygonLatLngs.map(coords => project(coords));
+					}
+					if (firstDraw || prevZoom !== zoom) {
+						triangle.clear();
+						triangle.lineStyle(3 / scale, 0x3388ff, 1);
+						triangle.beginFill(0x3388ff, 0.2);
+						projectedPolygon.forEach((coords, index) => {
+							if (index == 0) triangle.moveTo(coords.x, coords.y);
+							else triangle.lineTo(coords.x, coords.y);
+						});
+						triangle.endFill();
+					}
+					firstDraw = false;
+					prevZoom = zoom;
+					renderer.render(container);
+				},
+				{ container: pixiContainer }
+			);
+
+			pixiOverlay.addTo(map);
+		</script> -->
+	</body>
+</html>
