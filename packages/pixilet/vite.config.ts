@@ -1,5 +1,3 @@
-// vite.config.js
-
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
 import dts from "vite-plugin-dts";
