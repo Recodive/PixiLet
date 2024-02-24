@@ -1,9 +1,0 @@
-{
-	"extends": "../../tsconfig.base.json",
-	"exclude": ["lib", "dist", "**/*.test.ts", "**/*.config.ts"],
-	"compilerOptions": {
-		"rootDir": "src",
-		"outDir": "lib/esnext",
-		"composite": true
-	}
-}
