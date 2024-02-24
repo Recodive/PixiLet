@@ -2,8 +2,13 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
 	test: {
-		environment: "happy-dom",
+		browser: {
+			enabled: true,
+			headless: true,
+			isolate: true,
+			name: "firefox",
+			provider: "playwright",
+		},
 		isolate: true,
-		setupFiles: ["@vitest/web-worker"],
 	},
 });

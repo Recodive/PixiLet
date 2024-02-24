@@ -1,8 +1,10 @@
 {
-	"extends": "./tsconfig.build.json",
+	"extends": "../../tsconfig.base.json",
+	"exclude": ["lib", "dist", "**/*.test.ts", "**/*.config.*"],
 	"compilerOptions": {
 		"rootDir": "./src",
 		"noEmit": true,
-		"types": ["./environment.d.ts", "@types/node"]
+		"types": ["./environment.d.ts", "@types/node"],
+		"composite": true
 	}
 }

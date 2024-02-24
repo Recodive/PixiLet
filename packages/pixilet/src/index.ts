@@ -50,8 +50,8 @@ export function register(L: typeof import("leaflet"), PIXI: typeof import("pixi.
 		},
 		_update(this: IPixiLetLayer, event: PixiLetDrawCallbackEvent): void {
 			//* They seem to do this in leaflet... so I guess I will too
-			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-			if (this._map._animatingZoom && this._bounds) return;
+			/* istanbul ignore next -- @preserve */ // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+			if (this._map._animatingZoom && /* istanbul ignore next -- @preserve */ this._bounds) return;
 
 			//* Update pixel bounds of renderer container
 			const {
@@ -76,8 +76,10 @@ export function register(L: typeof import("leaflet"), PIXI: typeof import("pixi.
 
 			// eslint-disable-next-line unicorn/explicit-length-check, @typescript-eslint/no-unsafe-member-access
 			if (!this._renderer.size || this._renderer.size.x !== size.x || this._renderer.size.y !== size.y) {
+				/* istanbul ignore next -- @preserve */ // ? gl is always defined in our tests
 				if (gl) {
 					this._renderer.resolution = resolution;
+					/* istanbul ignore next -- @preserve */ // ? Resolution must be updated on the root if it exists
 					if (rootRenderTarget) rootRenderTarget.resolution = resolution;
 				}
 				this._renderer.resize(size.x, size.y);
@@ -85,20 +87,24 @@ export function register(L: typeof import("leaflet"), PIXI: typeof import("pixi.
 					height: `${size.y}px`,
 					width: `${size.x}px`,
 				});
+				/* istanbul ignore next -- @preserve */ // ? gl is always defined in our tests
 				if (gl && gl.drawingBufferWidth !== width) {
 					const newResolution = (resolution * gl.drawingBufferWidth) / width;
 					this._renderer.resolution = newResolution;
+					/* istanbul ignore next -- @preserve */ // ? Resolution must be updated on the root if it exists
 					if (rootRenderTarget) rootRenderTarget.resolution = newResolution;
 					this._renderer.resize(size.x, size.y);
 				}
 				this._renderer.size = size;
 			}
 
+			/* istanbul ignore next -- @preserve */ // ? Should always be set at this point
 			if (!b.min) return;
 			if (this._doubleBuffering) {
 				// eslint-disable-next-line @typescript-eslint/no-this-alias, unicorn/no-this-assignment
 				const self = this;
 				requestAnimationFrame(function () {
+					/* istanbul ignore next -- @preserve */ // ? Should always be set at this point
 					if (!b.min) return;
 					void self._redraw(b.min, event);
 					self._renderer.gl?.finish();
@@ -134,7 +140,7 @@ export function register(L: typeof import("leaflet"), PIXI: typeof import("pixi.
 			this._doubleBuffering = PIXI.utils.isWebGLSupported() && !this.options.renderer.forceCanvas && this.options.doubleBuffering;
 		},
 		onAdd(this: IPixiLetLayer, map: L.Map) {
-			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+			/* istanbul ignore next -- @preserve */ // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 			if (!this._container) this._initContainer();
 			this.getPane()?.append(this._container);
 

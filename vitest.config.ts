@@ -5,13 +5,10 @@ export default defineConfig({
 		coverage: {
 			all: true,
 			enabled: true,
+			provider: "istanbul",
 			reportOnFailure: true,
 			thresholds: {
-				autoUpdate: true,
-				branches: 100,
-				functions: 54.83,
-				lines: 74.5,
-				statements: 74.5,
+				100: true,
 			},
 		},
 		isolate: false,

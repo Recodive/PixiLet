@@ -1,4 +1,4 @@
 {
 	"files": [],
-	"references": [{ "path": "./packages/pixilet/tsconfig.build.json" }]
+	"references": []
 }
