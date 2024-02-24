@@ -117,19 +117,21 @@ describe("register()", () => {
 			expect(map.hasLayer(layer)).toBe(false);
 		});
 
-		it("moveend", async () => {
+		it("_onZoom", async () => {
 			const spy = vitest.fn(),
 				container = new PIXI.Container(),
 				layer = new L.PixiLetLayer(spy, {
 					container,
-				}), map = L.map(document.createElement("div")).setView([51.505, -0.09], 13);
+				}), map = L.map(document.createElement("div"), {
+					zoomAnimation: false,
+				}).setView([51.505, -0.09], 13);
 
 			layer.addTo(map);
 
 			expect(spy).toHaveBeenCalledWith(layer.utils, expect.objectContaining({ type: "add" }));
 			expect(spy).toHaveBeenCalledTimes(1);
 
-			map.setZoom(14);
+			map.zoomIn();
 
 			await new Promise(resolve => setTimeout(resolve, 1000));
 			expect(spy).toHaveBeenCalledWith(layer.utils, expect.objectContaining({ type: "moveend" }));
@@ -140,22 +142,31 @@ describe("register()", () => {
 			expect(map.hasLayer(layer)).toBe(false);
 		});
 
-		it("moveend (with shouldRedrawOnMove)", async () => {
+		it("_onAnimZoom", async () => {
 			const spy = vitest.fn(),
 				container = new PIXI.Container(),
-				layer = new L.PixiLetLayer(spy, {
+				element = document.createElement("div");
+			element.style.width = "100vw";
+			element.style.height = "100vh";
+			const layer = new L.PixiLetLayer(spy, {
 					container,
 					shouldRedrawOnMove: () => true,
-				}), map = L.map(document.createElement("div")).setView([51.505, -0.09], 13);
+				// eslint-disable-next-line unicorn/no-array-callback-reference, unicorn/no-array-method-this-argument
+				}), map = L.map(element).setView([51.505, -0.09], 13);
 
 			layer.addTo(map);
 
 			expect(spy).toHaveBeenCalledWith(layer.utils, expect.objectContaining({ type: "add" }));
 			expect(spy).toHaveBeenCalledTimes(1);
 
-			map.setZoom(14);
+			//* Emit event to simulate a scroll movement
+			element.dispatchEvent(new WheelEvent("onwheel" in window ? "wheel" : "mousewheel", {
+				deltaMode: 0,
+				deltaY: -120,
+			}));
 
-			await new Promise(resolve => setTimeout(resolve, 1000));
+			await new Promise(resolve => setTimeout(resolve, 2000));
+			expect(spy).toHaveBeenCalledWith(layer.utils, expect.objectContaining({ type: "move" }));
 			expect(spy).toHaveBeenCalledWith(layer.utils, expect.objectContaining({ type: "moveend" }));
 			expect(spy).toHaveBeenCalledTimes(3);
 
