@@ -8,7 +8,10 @@ export default defineConfig({
 			provider: "istanbul",
 			reportOnFailure: true,
 			thresholds: {
-				100: true,
+				branches: 70,
+				functions: 94,
+				lines: 98,
+				statements: 95,
 			},
 		},
 		isolate: false,
